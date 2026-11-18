@@ -11,7 +11,8 @@
 
 *Know which agent needs you without opening every tab.*
 
-See what every [Rex](https://www.superlogical.com/rex) tab is doing from its name.
+Each [Rex](https://www.superlogical.com/rex) tab name starts with an emoji for what's happening in it.
+I wrote this because I kept clicking through tabs to find the agent that was waiting on me.
 
 ![Rex tabs gaining status emoji as agents work, wait and finish](assets/demo.gif)
 
@@ -27,7 +28,7 @@ See what every [Rex](https://www.superlogical.com/rex) tab is doing from its nam
 
 Programs report their state to Rex through the
 [program status protocol](https://www.superlogical.com/rex/docs/build/program-status) (OSC 7501).
-Claude Code already does, so agent tabs work with no setup. When a tab has several
+Claude Code already does, so its tabs work with no setup. Other programs show up once they speak the protocol. When a tab has several
 panes, or an agent runs work in the background, the tab shows the most urgent state.
 
 ✅ clears when you switch to the tab. Press `cmd+u` to mark a tab seen or unseen by hand,
