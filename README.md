@@ -48,7 +48,6 @@ or unseen.
 | OpenCode | Yes | Reports its state to Rex natively |
 | Gemini CLI | Yes | Hooks, which the installer adds as a Gemini extension |
 | Cursor CLI | Not yet | Cursor has no hook that fires while the agent waits for approval |
-| Amp | Not yet | Amp has no command hooks |
 
 Any program that reports its state with the
 [program status protocol](https://www.superlogical.com/rex/docs/build/program-status)
