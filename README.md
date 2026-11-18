@@ -43,10 +43,10 @@ or unseen.
 
 | Agent | Supported | How |
 |---|---|---|
-| Claude Code | Yes | Reports its state to Rex natively |
-| Codex | Yes | Reports its state to Rex natively |
-| OpenCode | Yes | Reports its state to Rex natively |
-| Gemini CLI | Yes | Hooks, which the installer adds as a Gemini extension |
+| Claude Code | Yes | Built in |
+| Codex | Yes | Built in |
+| OpenCode | Yes | Built in |
+| Gemini CLI | Yes | A Gemini extension, which the installer adds |
 | Cursor CLI | Not yet | Cursor has no hook that fires while the agent waits for approval |
 
 Any program that reports its state with the
@@ -91,7 +91,7 @@ built-in shortcuts, so check the command palette before you choose an unusual ke
 | `install.sh` | Copies the Lua file, edits `init.lua`, starts the background listener, and installs the Gemini CLI extension if Gemini CLI is present. `--uninstall` reverses each step. |
 | `hooks/report.sh` | Reports an agent's state to Rex for agents that don't report it themselves. Gemini CLI runs it. |
 | `hooks/hooks.json`, `gemini-extension.json` | The Gemini CLI extension that calls `report.sh` |
-| `INSTALL.md` | Instructions for an agent that installs this for you. The agent reads both scripts first and asks before it picks a key. |
+| `INSTALL.md` | Instructions for an agent that installs this for you. The agent reads the scripts first and asks before it picks a key. |
 
 ## What the installer changes
 

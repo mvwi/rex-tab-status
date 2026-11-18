@@ -158,14 +158,13 @@ ok "listening to every Rex session"
 # Claude Code, Codex and OpenCode report their state on their own. Gemini CLI needs hooks,
 # which ship in this repo as a Gemini extension.
 if command -v gemini >/dev/null 2>&1; then
-  src=https://github.com/$REPO
-  [ -z "$here" ] || src=$here
+  # --ref only applies to a git URL, not to a clone's path.
+  if [ -n "$here" ]; then set -- "$here"; else set -- "https://github.com/$REPO" --ref "$REF"; fi
   gemini extensions uninstall rex-tab-status >/dev/null 2>&1 || true
-  if gemini extensions install "$src" --ref "$REF" --consent >/dev/null 2>&1 ||
-    gemini extensions install "$src" --consent >/dev/null 2>&1; then
+  if gemini extensions install "$@" --consent >/dev/null 2>&1; then
     ok "installed the Gemini CLI extension"
   else
-    warn "couldn't install the Gemini CLI extension; run: gemini extensions install $src"
+    warn "couldn't install the Gemini CLI extension; run: gemini extensions install $*"
   fi
 fi
 

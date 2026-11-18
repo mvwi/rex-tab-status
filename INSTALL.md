@@ -2,10 +2,10 @@
 
 You're installing a Rex extension for your user. Follow these steps in order.
 
-1. **Read before running.** Read `tab-status.lua`, `install.sh` and `hooks/report.sh` in this repo. Tell the
-   user, in a sentence, that the install adds a block to their Rex `init.lua` and a launchd
-   agent that keeps a `rex do` script running in the background, and, if Gemini CLI is
-   installed, a Gemini extension that reports Gemini's state to Rex.
+1. **Read before running.** Read `tab-status.lua`, `install.sh` and `hooks/report.sh`. Tell
+   the user, in a sentence or two, what the install adds: a block in their Rex `init.lua`, a
+   launchd agent that keeps a `rex do` script running, and a Gemini extension if Gemini CLI
+   is installed.
 2. **Check that it applies.** Run `uname` (must be `Darwin`) and `rex whoami` (must succeed).
    If either fails, stop and tell the user why.
 3. **Pick a key.** Run `rex keymap`. The default is `cmd+u`. If it's taken, or the user
