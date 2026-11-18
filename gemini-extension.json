@@ -1,0 +1,5 @@
+{
+  "name": "rex-tab-status",
+  "version": "2.0.0",
+  "description": "Reports Gemini CLI's state to Rex so the tab name shows it."
+}

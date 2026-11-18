@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "BeforeAgent": [{ "hooks": [{ "type": "command", "name": "rex-tab-status-working", "command": "sh \"${extensionPath}/hooks/report.sh\" gemini-cli working", "timeout": 5000 }] }],
+    "AfterTool": [{ "hooks": [{ "type": "command", "name": "rex-tab-status-resumed", "command": "sh \"${extensionPath}/hooks/report.sh\" gemini-cli working", "timeout": 5000 }] }],
+    "Notification": [{ "matcher": "ToolPermission", "hooks": [{ "type": "command", "name": "rex-tab-status-blocked", "command": "sh \"${extensionPath}/hooks/report.sh\" gemini-cli blocked permission", "timeout": 5000 }] }],
+    "AfterAgent": [{ "hooks": [{ "type": "command", "name": "rex-tab-status-done", "command": "sh \"${extensionPath}/hooks/report.sh\" gemini-cli done", "timeout": 5000 }] }],
+    "SessionEnd": [{ "hooks": [{ "type": "command", "name": "rex-tab-status-clear", "command": "sh \"${extensionPath}/hooks/report.sh\" gemini-cli clear", "timeout": 5000 }] }]
+  }
+}

@@ -1,13 +1,13 @@
 #!/bin/sh
 # rex-tab-status installer. Run from a clone, or:
-#   curl -fsSL https://raw.githubusercontent.com/mvwi/rex-tab-status/v1/install.sh | sh
+#   curl -fsSL https://raw.githubusercontent.com/mvwi/rex-tab-status/v2/install.sh | sh
 # Options:
 #   --key COMBO   bind Toggle Tab Seen to COMBO (default cmd+u)
 #   --no-key      don't bind a key; the action is still in the command palette
 #   --uninstall   remove everything this script added, and the emoji from tab names
 set -eu
 
-REF=v1
+REF=v2
 REPO=mvwi/rex-tab-status
 KEY=cmd+u
 MODE=install
@@ -24,6 +24,7 @@ while [ $# -gt 0 ]; do
   shift
 done
 
+warn() { printf '  ! %s\n' "$*"; }
 ok() { printf '  \342\234\223 %s\n' "$*"; }
 die() { printf '  \342\234\227 %s\n' "$*" >&2; exit 1; }
 
@@ -49,7 +50,12 @@ strip_config() {
   mv "$CONFIG.tmp" "$CONFIG"
 }
 
-stop_agent() { launchctl bootout "$DOMAIN/$LABEL" 2>/dev/null || true; }
+# bootout returns before launchd lets go of the label, so wait, or bootstrap fails with error 5.
+stop_agent() {
+  launchctl bootout "$DOMAIN/$LABEL" 2>/dev/null || true
+  i=0
+  while launchctl print "$DOMAIN/$LABEL" >/dev/null 2>&1 && [ $i -lt 20 ]; do i=$((i + 1)); sleep 0.25; done
+}
 
 echo "rex-tab-status $REF"
 
@@ -66,6 +72,9 @@ if [ "$MODE" = uninstall ]; then
   ok "removed the init.lua block and reloaded the config"
   rm -f "$LUA" "$STATE/tab-status.json" "$LOG"
   ok "deleted tab-status.lua and its state"
+  if command -v gemini >/dev/null 2>&1 && gemini extensions uninstall rex-tab-status >/dev/null 2>&1; then
+    ok "removed the Gemini CLI extension"
+  fi
   exit 0
 fi
 
@@ -145,6 +154,20 @@ until grep -q '^listening' "$LOG" 2>/dev/null; do
   sleep 0.5
 done
 ok "listening to every Rex session"
+
+# Claude Code, Codex and OpenCode report their state on their own. Gemini CLI needs hooks,
+# which ship in this repo as a Gemini extension.
+if command -v gemini >/dev/null 2>&1; then
+  src=https://github.com/$REPO
+  [ -z "$here" ] || src=$here
+  gemini extensions uninstall rex-tab-status >/dev/null 2>&1 || true
+  if gemini extensions install "$src" --ref "$REF" --consent >/dev/null 2>&1 ||
+    gemini extensions install "$src" --consent >/dev/null 2>&1; then
+    ok "installed the Gemini CLI extension"
+  else
+    warn "couldn't install the Gemini CLI extension; run: gemini extensions install $src"
+  fi
+fi
 
 echo
 echo "  ⏳ working  ✋ approve  ❓ question  🔑 login  ❌ error  ✅ unread"
