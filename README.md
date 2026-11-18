@@ -1,10 +1,19 @@
-# rex-tab-status
+```
+  █████              █████                 █████               █████
+ ▒▒███              ▒▒███                 ▒▒███               ▒▒███
+ ███████    ██████   ▒███████      █████  ███████    ██████   ███████   █████ ████  █████
+▒▒▒███▒    ▒▒▒▒▒███  ▒███▒▒███    ███▒▒  ▒▒▒███▒    ▒▒▒▒▒███ ▒▒▒███▒   ▒▒███ ▒███  ███▒▒
+  ▒███      ███████  ▒███ ▒███   ▒▒█████   ▒███      ███████   ▒███     ▒███ ▒███ ▒▒█████
+  ▒███ ███ ███▒▒███  ▒███ ▒███    ▒▒▒▒███  ▒███ ███ ███▒▒███   ▒███ ███ ▒███ ▒███  ▒▒▒▒███
+  ▒▒█████ ▒▒████████ ████████     ██████   ▒▒█████ ▒▒████████  ▒▒█████  ▒▒████████ ██████
+   ▒▒▒▒▒   ▒▒▒▒▒▒▒▒ ▒▒▒▒▒▒▒▒     ▒▒▒▒▒▒     ▒▒▒▒▒   ▒▒▒▒▒▒▒▒    ▒▒▒▒▒    ▒▒▒▒▒▒▒▒ ▒▒▒▒▒▒
+```
+
+*Know which agent needs you without opening every tab.*
 
 See what every [Rex](https://www.superlogical.com/rex) tab is doing from its name.
 
-```
-⏳ refactor auth   ✋ fix login   ✅ write tests   deploy notes   ❌ npm test
-```
+![Rex tabs gaining status emoji as agents work, wait and finish](assets/demo.gif)
 
 | Emoji | Means |
 |---|---|
