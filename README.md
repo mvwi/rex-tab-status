@@ -115,16 +115,27 @@ rex config reload
 launchctl kickstart -k gui/$(id -u)/io.github.mvwi.rex-tab-status
 ```
 
+## Security
+
+This is a shell extension, not a payment processor. Nobody audited it, and security is on you.
+If you're worried it steals your credit card, ask your agent to read the code and tell you.
+There isn't much to read: `tab-status.lua`, `install.sh` and `hooks/report.sh`.
+
+What to expect when it checks:
+
+- The extension talks only to the Rex server on your Mac. It makes no network requests.
+- The installer downloads from GitHub only: `tab-status.lua` from this repo when you pipe it
+  from `curl`, and this repo again when it installs the Gemini CLI extension.
+- The installer writes only the files listed in [What the installer changes](#what-the-installer-changes).
+
+To skip `curl | sh`, clone the repo, read it, and run `sh install.sh`.
+
 ## FAQ
 
 **Why does it run in the background?**
 Rex sends events only to scripts started with `rex do`, not to `init.lua`. Without a running
 script, nothing notices when a tab changes state. launchd starts the script at login and
 restarts it if it stops. The script stays idle until Rex sends an event.
-
-**Does it send data over the network?**
-No. The script talks only to the Rex server on your Mac. When you pipe the installer from
-`curl`, it downloads `tab-status.lua` from this repo. That is the only download.
 
 **Why isn't this a skill?**
 A skill is instructions that an agent reads while it works. This extension has to run when no
@@ -134,10 +145,6 @@ it for you: `INSTALL.md` is written for that.
 **Why isn't this an `npx` package?**
 An `npx` package would require Node to copy one Lua file. Rex already runs Lua, and every Mac
 has `sh` and `curl`.
-
-**Is `curl | sh` safe?**
-Read [`install.sh`](install.sh) before you run it. It's about 170 lines of plain `sh`. You can
-also clone the repo and run `sh install.sh`.
 
 **Will it rename my tabs?**
 It adds an emoji in front of the name. Tabs you named keep their names. Tabs you didn't name
