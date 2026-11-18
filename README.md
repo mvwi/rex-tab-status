@@ -7,9 +7,18 @@
   ▒███ ███ ███▒▒███  ▒███ ▒███    ▒▒▒▒███  ▒███ ███ ███▒▒███   ▒███ ███ ▒███ ▒███  ▒▒▒▒███
   ▒▒█████ ▒▒████████ ████████     ██████   ▒▒█████ ▒▒████████  ▒▒█████  ▒▒████████ ██████
    ▒▒▒▒▒   ▒▒▒▒▒▒▒▒ ▒▒▒▒▒▒▒▒     ▒▒▒▒▒▒     ▒▒▒▒▒   ▒▒▒▒▒▒▒▒    ▒▒▒▒▒    ▒▒▒▒▒▒▒▒ ▒▒▒▒▒▒
+                                                      _                , __
+                                                     | |              /|/  \          |
+                                                     | |  __   ,_      |___/  _       |
+                                                     |/  /  \_/  |     | \   |/  /\/  |
+                                                     |__/\__/    |_/   |  \_/|__/ /\_/o
+                                                     |\
+                                                     |/
 ```
 
-*Know which agent needs you without opening every tab.*
+**Know which agent needs you. Without opening every tab!\***
+
+<sub>\* Agents left waiting are not the responsibility of Tab Status.</sub>
 
 Each [Rex](https://www.superlogical.com/rex) tab name starts with an emoji for what's happening in it.
 I wrote this because I kept clicking through tabs to find the agent that was waiting on me.
