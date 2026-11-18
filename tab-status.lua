@@ -105,7 +105,8 @@ local function relabel(session_id, w, active_window_id)
 
   local label
   if not best then
-    label = derived and "" or base
+    -- Only undo labels we prefixed; a plain label is the user's (or Rex's) to keep.
+    label = base == current and current or (derived and "" or base)
     entry.from_title = nil
   else
     local e = best.state == "blocked" and (blocked_glyph[best.kind] or blocked_glyph.permission) or glyph[best.state]
