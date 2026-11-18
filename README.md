@@ -37,8 +37,15 @@ I wrote this because I kept clicking through tabs to find the agent that was wai
 
 Programs report their state to Rex through the
 [program status protocol](https://www.superlogical.com/rex/docs/build/program-status) (OSC 7501).
-Claude Code already does, so its tabs work with no setup. Other programs show up once they speak the protocol. When a tab has several
-panes, or an agent runs work in the background, the tab shows the most urgent state.
+When a tab has several panes, or an agent runs work in the background, the tab shows the
+most urgent state.
+
+**Works with:** Claude Code, which reports its state with no setup. Other agents show up once
+they support the protocol. I've checked Cursor's CLI (2025.09.18): it doesn't yet. I haven't
+tested Codex, Gemini, OpenCode or Amp.
+
+**Runs in:** Rex on macOS. It's built on Rex's own Lua events and tab labels, so it won't
+work in iTerm2, Ghostty, Warp or other terminals.
 
 ✅ clears when you switch to the tab. Press `cmd+u` to mark a tab seen or unseen by hand,
 the way you'd mark mail unread.
@@ -72,6 +79,14 @@ shortcuts, so check the command palette before you pick an unusual one.
 
 macOS only for now.
 
+## What's in the repo
+
+| File | Does |
+|---|---|
+| `tab-status.lua` | The whole extension. Under `rex do`, it listens for status changes and renames tabs. Loaded from `init.lua`, it adds the Toggle Tab Seen action. |
+| `install.sh` | Copies the Lua file, edits `init.lua`, sets up the launchd agent, and checks it started. `--uninstall` reverses each step. |
+| `INSTALL.md` | Steps for your agent, if you ask it to install this. It tells the agent to read both files first and ask you before picking a key. |
+
 ## What it changes
 
 - Adds `tab-status.lua` beside your `init.lua`.
@@ -85,15 +100,40 @@ macOS only for now.
 
 ## Notes
 
-- A tab you haven't named shows its terminal's title. Setting a label hides that title, so
-  for those tabs the emoji goes in front of the title, and the default label comes back
-  when the state clears. Tabs you named keep your name.
 - To change the emoji, edit the tables at the top of `tab-status.lua`, then run
   `rex config reload` and `launchctl kickstart -k gui/$(id -u)/io.github.mvwi.rex-tab-status`.
 - "Looking at a tab" means the active tab of its session, even when the app shows a
   different session. Rex doesn't yet tell scripts which session the app shows.
 - The default label pattern (`Window 0ab0edc4`) comes from current Rex builds. If a Rex
   update changes it, untitled tabs may keep a stale title.
+
+## FAQ
+
+**Why is something running in the background?**
+Rex only sends events to scripts started with `rex do`, not to `init.lua`. Without a
+running script, nothing hears that a tab changed state. launchd starts it at login and
+restarts it if it dies. It sits idle until Rex sends an event.
+
+**Does it send anything over the network?**
+No. The script talks only to the Rex server on your Mac. The installer downloads
+`tab-status.lua` from this repo when you pipe it from `curl`, and that's the only download.
+
+**Why not a skill?**
+A skill is instructions an agent reads while it works. This has to run when no agent is
+running, and it has to react to Rex events, which a skill can't do. You can still have your
+agent install it: `INSTALL.md` is written for that.
+
+**Why not `npx`?**
+That would make you install Node to copy one Lua file. Rex already runs Lua, and every Mac
+has `sh` and `curl`.
+
+**Is `curl | sh` safe?**
+As safe as the script you pipe. Read [`install.sh`](install.sh) first; it's about 150 lines
+of plain `sh`. Or clone the repo and run `sh install.sh`.
+
+**Will it rename my tabs?**
+It only adds an emoji in front. Tabs you named keep your name. Tabs you didn't name show
+their terminal title with the emoji in front, then go back to normal when the state clears.
 
 ## License
 
